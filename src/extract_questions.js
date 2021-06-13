@@ -66,7 +66,7 @@ skills.forEach(({skill_name, skill_link}) => {
 			        }
 			    })
 				// console.log(quizes)
-				fs.writeFile(`./resources/${skill_name}.json`, JSON.stringify(quizes), 'utf8', (err) => {
+				fs.writeFile(`./resources/${skill_name.toLowerCase()}.json`, JSON.stringify(quizes), 'utf8', (err) => {
 						if(err) console.log(err)
 
 						console.log("skill_name " + skill_name + " saved to the file")
