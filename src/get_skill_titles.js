@@ -32,8 +32,10 @@ const get_skill_titles = async () => {
 	// console.log(links)
 
 	let skills = []
+	let skill_names = []
 	links.forEach((item) => {
 		const skill_name = item.match(extractRegex)[0]
+		skill_names.push(skill_name)
 		skills.push({
 			skill_name: skill_name.split(' ').join('-'),
 			skill_link:  manualSkillLinks[skill_name] || item.match(linkRegex)[0].substring(1, item.match(linkRegex)[0].length - 1)
@@ -41,8 +43,16 @@ const get_skill_titles = async () => {
 	})
 	// Filter out first 3 and last 4
 	skills = skills.slice(3, skills.length-4)
+	skill_names = skill_names.slice(3, skill_names.length-4)
 	console.log(skills.slice(3, skills.length-4))
+	// write just the list of skills name
+	fs.writeFile("./resources/skill_names.json", JSON.stringify(skill_names), 'utf8', (err) => {
+		if(err) console.log(err)
 
+		console.log("List of skills saved to the file")
+	})
+
+	// write skills with name and link
 	fs.writeFile("./resources/skills.json", JSON.stringify(skills), 'utf8', (err) => {
 		if(err) console.log(err)
 
